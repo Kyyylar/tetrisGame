@@ -19,7 +19,18 @@ function drawShape(shape, offset)
         row.forEach((value, x) => {
             if(value !== 0)
             {
-                ctx.fillStyle = 'red';
+                let color;
+                switch(value)
+                {
+                    case 1: color = '#c3e028'; break;
+                    case 2: color = '#b51773'; break;
+                    case 3: color = '#eb008f'; break;
+                    case 4: color = '#0d664c'; break;
+                    case 5: color = '#cc0000'; break;
+                    case 6: color = '#ff9933'; break;
+                    case 7: color = '#1f1fa3'; break;
+                }
+                ctx.fillStyle = color;
                 ctx.fillRect(offset.x + x, offset.y + y, 1,1);
             }
         })
@@ -198,11 +209,22 @@ block_ctx.scale(20,20);
 function nextBlock()
 {
     block_ctx.clearRect(0, 0, block.width, block.height);
+    let color;
     player.next.forEach((row,y) => {
         row.forEach((value, x) => {
             if(value !== 0)
             {
-                block_ctx.fillStyle = 'red';
+                switch(value)
+            {
+                case 1: color = '#c3e028'; break;
+                case 2: color = '#b51773'; break;
+                case 3: color = '#eb008f'; break;
+                case 4: color = '#0d664c'; break;
+                case 5: color = '#cc0000'; break;
+                case 6: color = '#ff9933'; break;
+                case 7: color = '#1f1fa3'; break;
+            }
+                block_ctx.fillStyle = color;
                 block_ctx.fillRect(x,y,1,1);
             }
         })
