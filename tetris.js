@@ -1,6 +1,8 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+const block = document.getElementById('block');
+const block_ctx = block.getContext('2d');
 ctx.scale(20,20);
 
 function draw()
@@ -101,6 +103,7 @@ function fillArena(arena) {
 const player = {
     position: {x: 0, y: 0},
     shape: null,
+    next: null,
     score: 0,
 }
 
@@ -177,7 +180,8 @@ function playerRotate()
 
 function resetPlayer() 
 {
-    player.shape = Object.values(tetrominoes)[Math.floor(Math.random() * Object.values(tetrominoes).length)];
+    player.shape = player.next;
+    player.next = Object.values(tetrominoes)[Math.floor(Math.random() * Object.values(tetrominoes).length)];
     player.position.y=0;
     player.position.x = Math.floor(arena[0].length/2) - Math.floor(player.shape[0].length/2);
     if(collision(arena, player))
@@ -187,6 +191,22 @@ function resetPlayer()
         addPoints(0);
         document.querySelector('h2.add').textContent = `+0`;
     }
+    nextBlock();
+}
+
+block_ctx.scale(20,20);
+function nextBlock()
+{
+    block_ctx.clearRect(0, 0, block.width, block.height);
+    player.next.forEach((row,y) => {
+        row.forEach((value, x) => {
+            if(value !== 0)
+            {
+                block_ctx.fillStyle = 'red';
+                block_ctx.fillRect(x,y,1,1);
+            }
+        })
+    })
 }
 
 function playerDrop()
@@ -248,6 +268,7 @@ function handleKey(e)
     }
 }
 fillArena(arena);
+player.next = Object.values(tetrominoes)[Math.floor(Math.random() * Object.values(tetrominoes).length)];
 resetPlayer();
 update();
 
