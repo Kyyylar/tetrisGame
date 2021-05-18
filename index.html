@@ -11,15 +11,21 @@
 </head>
 <body>
     <div id="wrapper">
-        <div class="score">
-            <h2 id="score">SCORE<div>0</div></h2>
-            <h2 class="add">+0</h2>
+        <div class="start">
+            <h1> <span style="color: #5cbb64">T</span> <span style="color: #fa3932;">E</span> <span style="color: #3b3bff;">T</span> <span style="color: #1bac80;">R</span> <span style="color: #ff660d;">I</span> <span style="color: #45f6e7;">S</span></h1>
+            <button>START GAME</button>
         </div>
-        <div class="next">
-            NEXT BLOCK
-            <canvas height="60" width="80" id="block"></canvas>
+        <div class="game hidden">
+            <div class="score">
+                <h2 id="score">SCORE<div>0</div></h2>
+                <h2 class="add">+0</h2>
+            </div>
+            <div class="next">
+                NEXT BLOCK
+                <canvas height="60" width="80" id="block"></canvas>
+            </div>
+            <canvas height="400" width="200" id="canvas"></canvas>
         </div>
-        <canvas height="400" width="200" id="canvas"></canvas>
     </div>
     <script src="tetris.js"></script>
 </body>
