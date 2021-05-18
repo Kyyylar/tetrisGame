@@ -56,6 +56,32 @@ div.start button {
     color: white;
 }
 
+div.reset {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.reset h1 {
+    display: block;
+    padding: 20px 0;
+}
+
+div.reset button {
+    padding: 20px 30px;
+    font-size: 20px;
+}
+
+p.earned {
+    color: green;
+    font-size: 30px;
+}
+
 .hidden {
     display: none;
+}
+
+.inactive {
+    opacity: 0.15;
 }

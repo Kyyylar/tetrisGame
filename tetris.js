@@ -7,6 +7,10 @@ function startGame()
     const block_ctx = block.getContext('2d');
     ctx.scale(20,20);
 
+    const gameDiv = document.querySelector('div.game');
+    const startDiv = document.querySelector('div.start');
+    const resetDiv = document.querySelector('div.reset');
+
     function draw()
     {
         ctx.fillStyle = "#000"
@@ -190,7 +194,6 @@ function startGame()
             }
         }
     }
-
     function resetPlayer() 
     {
         player.shape = player.next;
@@ -199,12 +202,31 @@ function startGame()
         player.position.x = Math.floor(arena[0].length/2) - Math.floor(player.shape[0].length/2);
         if(collision(arena, player))
         {
+            restartGame(true);
+        }
+        nextBlock();
+    }
+
+    function restartGame(pause)
+    {   
+        if(pause === true) 
+        {
+            gameDiv.classList.add('inactive');
+            startDiv.classList.add('inactive');
+            resetDiv.classList.remove('hidden');
+            const yourScore = document.querySelector('p.earned');
+            yourScore.textContent = player.score;
+        }
+        else if(pause === false)
+        {
+            gameDiv.classList.remove('inactive');
+            startDiv.classList.remove('inactive');
+            resetDiv.classList.add('hidden');
             fillArena(arena);
             player.score = 0;
             addPoints(0);
             document.querySelector('h2.add').textContent = `+0`;
         }
-        nextBlock();
     }
 
     block_ctx.scale(20,20);
@@ -297,6 +319,10 @@ function startGame()
     update();
 
     document.addEventListener('keydown', handleKey);
+    const restartButton = document.querySelector('div.reset button');
+    restartButton.addEventListener('click', () => {
+        restartGame(false);
+    })
 }
 const button = document.querySelector('div.start button');
 button.addEventListener('click', () => 
