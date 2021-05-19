@@ -72,7 +72,19 @@ function startGame()
             case 4: value = 800; break;
             default: value = 0;
         }
-        addPoints(value);
+        let multiplier = 0;
+        switch(player.level)
+        {
+            case 1: multiplier = 1; break;
+            case 2: multiplier = 1.5; break;
+            case 3: multiplier = 2; break;
+            case 4: multiplier = 4; break;
+            case 5: multiplier = 8; break;
+            case 6: multiplier = 16; break;
+            case 7: multiplier = 32; break;
+        }
+        addPoints(value, multiplier);
+        return rowsDeleted;
     }
 
     const tetrominoes = 
@@ -122,14 +134,15 @@ function startGame()
         shape: null,
         next: null,
         score: 0,
+        level: 1,
     }
 
-    function addPoints(value) 
+    function addPoints(value, multiplier) 
     {
-        player.score += value;
+        player.score += (value*multiplier);
         if(value > 0)
         {
-            document.querySelector('h2.add').textContent = `+${value}`;
+            document.querySelector('h2.add').textContent = `+${value*multiplier}`;
         }
         document.querySelector('#score div').textContent = `${player.score}`;
     }
@@ -224,7 +237,7 @@ function startGame()
             resetDiv.classList.add('hidden');
             fillArena(arena);
             player.score = 0;
-            addPoints(0);
+            addPoints(0, 0);
             document.querySelector('h2.add').textContent = `+0`;
         }
     }
@@ -255,6 +268,29 @@ function startGame()
         })
     }
 
+    let lines = 0;
+    let goal = 15;
+    function checkLevel(rowsDeleted)
+    {
+        lines += rowsDeleted;
+        document.querySelector('div.lines p').textContent = lines;
+        if(lines/goal >= 1 && lines !== 0)
+        {
+            goal+=15;
+            player.level++;
+            document.querySelector('div.level p').textContent = player.level;
+            switch(player.level)
+            {
+                case 2: dropInterval = 750; break;
+                case 3: dropInterval = 500; break;
+                case 4: dropInterval = 350; break;
+                case 5: dropInterval = 200; break;
+                case 6: dropInterval = 150; break;
+                case 7: dropInterval = 100; break;
+            }
+        }
+    }
+
     function playerDrop()
     {
         player.position.y++;
@@ -262,8 +298,9 @@ function startGame()
         {
             player.position.y--;
             connect(player, arena);
+            const rowsDeleted = deleteRows();
+            checkLevel(rowsDeleted);
             resetPlayer();
-            deleteRows();
         }
         dropCounter = 0;
     }

@@ -36,7 +36,7 @@ div.score {
 div.next {
     height: 100px;
     width: 200px;
-    background-color: rgb(86, 88, 197);
+    background-color: rgb(11, 148, 45);
     border: 2px solid black;
 }
 
@@ -73,7 +73,34 @@ div.reset button {
     font-size: 20px;
 }
 
-p.earned {
+div.info {
+    display: flex;
+    width: 200px;
+    flex-basis: 50%;
+    flex-direction: row;
+}
+
+div.level,
+div.lines {
+    border: 2px solid black;
+    height: 50px;
+    width: 50%;
+}
+
+div.lines p,
+div.info p {
+    font-size: 22px;
+}
+
+div.level {
+    background-color: rgb(157, 38, 255);
+}
+
+div.lines {
+    background-color: rgb(218, 150, 26);
+}
+
+div.li p.earned {
     color: green;
     font-size: 30px;
 }
